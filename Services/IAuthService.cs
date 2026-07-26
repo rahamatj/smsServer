@@ -7,6 +7,6 @@ namespace smsServer.Services
     {
         Task<User?> RegisterAsync(UserDTO userDto);
         Task<TokenResponseDTO?> LoginAsync(UserDTO userDto);
-        Task<TokenResponseDTO?> RefreshTokenAsync(RefreshTokenRequestDTO refreshTokenRequestDto);
+        Task<TokenResponseDTO?> RefreshTokensAsync(RefreshTokenRequestDTO refreshTokenRequestDto);
     }
 }

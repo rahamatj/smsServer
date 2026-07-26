@@ -11,9 +11,16 @@ namespace smsServer.Services
 {
     public class AuthService(ApplicationDbContext dbContext, IConfiguration configuration) : IAuthService
     {
-        public async Task<TokenResponseDTO?> RefreshTokenAsync(RefreshTokenRequestDTO refreshTokenRequestDto)
+        private async Task<User?> ValidateRefreshTokenAsync(Guid userId, string refreshToken)
         {
-            var user = await (refreshTokenRequestDto.UserId, refreshTokenRequestDto.RefreshToken);
+            var user = await dbContext.Users.FirstOrDefaultAsync(u => u.Id == userId);
+
+            if (user is null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+            {
+                return null;
+            }
+
+            return user;
         }
 
         private string GenerateRefreshToken()
@@ -78,13 +85,18 @@ namespace smsServer.Services
                 return null;
             }
 
-            var response = new TokenResponseDTO
+            TokenResponseDTO response = await CreateTokenResponse(user);
+
+            return response;
+        }
+
+        private async Task<TokenResponseDTO> CreateTokenResponse(User user)
+        {
+            return new TokenResponseDTO
             {
                 AccessToken = CreateToken(user),
                 RefreshToken = await GenerateAndSaveRefreshTokenAsync(user)
             };
-
-            return response;
         }
 
         public async Task<User?> RegisterAsync(UserDTO userDTO)
@@ -108,9 +120,16 @@ namespace smsServer.Services
             return user;
         }
 
-        public Task<TokenResponseDTO?> ValidateRefreshTokenAsync(RefreshTokenRequestDTO refreshTokenRequestDto)
+        public async Task<TokenResponseDTO?> RefreshTokensAsync(RefreshTokenRequestDTO refreshTokenRequestDto)
         {
-            throw new NotImplementedException();
+            var user = await ValidateRefreshTokenAsync(refreshTokenRequestDto.UserId, refreshTokenRequestDto.RefreshToken);
+
+            if (user is null)
+            {
+                return null;
+            }
+
+            return await CreateTokenResponse(user);
         }
     }
 }

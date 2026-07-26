@@ -59,5 +59,17 @@ namespace smsServer.Controllers
             return Unauthorized(new { message = "Admin is not authorized" });
         }
 
+        [HttpPost("RefreshToken")]
+        public async Task<ActionResult<TokenResponseDTO>> RefreshTokens(RefreshTokenRequestDTO refreshTokenRequestDto)
+        {
+            var result = await authService.RefreshTokensAsync(refreshTokenRequestDto);
+
+            if (result is null || result.AccessToken is null || result.RefreshToken is null)
+            {
+                return Unauthorized("Invalid refresh token.");
+            }
+
+            return Ok(result);
+        }
     }
 }
