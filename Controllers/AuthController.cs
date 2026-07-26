@@ -23,17 +23,16 @@ namespace smsServer.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<string>> Login(UserDTO userDTO)
+        public async Task<ActionResult<TokenResponseDTO>> Login(UserDTO userDTO)
         {
-            var token = await authService.LoginAsync(userDTO);
+            var result = await authService.LoginAsync(userDTO);
 
-            if (token is null)
+            if (result is null)
             {
                 return Unauthorized("Invalid username or password.");
             }
 
-            //return Ok(new { token, message = "Login successful" });
-            return Ok(token);
+            return Ok(result);
 
         }
 

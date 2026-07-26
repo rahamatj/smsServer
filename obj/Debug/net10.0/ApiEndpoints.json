@@ -35,7 +35,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.String",
+        "Type": "smsServer.DTOs.TokenResponseDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",

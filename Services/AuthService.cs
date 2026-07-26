@@ -4,12 +4,38 @@ using smsServer.Data;
 using smsServer.DTOs;
 using smsServer.Entities;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace smsServer.Services
 {
     public class AuthService(ApplicationDbContext dbContext, IConfiguration configuration) : IAuthService
     {
+        public async Task<TokenResponseDTO?> RefreshTokenAsync(RefreshTokenRequestDTO refreshTokenRequestDto)
+        {
+            var user = await (refreshTokenRequestDto.UserId, refreshTokenRequestDto.RefreshToken);
+        }
+
+        private string GenerateRefreshToken()
+        {
+            var randomNumber = new byte[32];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(randomNumber);
+                return Convert.ToBase64String(randomNumber);
+            }
+        }
+
+        private async Task<string> GenerateAndSaveRefreshTokenAsync(User user)
+        {
+            var refreshToken = GenerateRefreshToken();
+            user.RefreshToken = refreshToken;
+            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7); // Set the refresh token expiry time to 7 days from now
+
+            await dbContext.SaveChangesAsync();
+            return refreshToken;
+        }
+
         private string CreateToken(User user)  // Change parameter type from UserDTO to User
         {
             var claims = new List<Claim>
@@ -38,7 +64,7 @@ namespace smsServer.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public async Task<string?> LoginAsync(UserDTO userDTO)
+        public async Task<TokenResponseDTO?> LoginAsync(UserDTO userDTO)
         {
             var user = await dbContext.Users.FirstOrDefaultAsync(u => u.Username == userDTO.Username);
 
@@ -52,9 +78,13 @@ namespace smsServer.Services
                 return null;
             }
 
-            var token = CreateToken(user);  // Pass 'user' instead of 'userDTO'
+            var response = new TokenResponseDTO
+            {
+                AccessToken = CreateToken(user),
+                RefreshToken = await GenerateAndSaveRefreshTokenAsync(user)
+            };
 
-            return token;
+            return response;
         }
 
         public async Task<User?> RegisterAsync(UserDTO userDTO)
@@ -78,6 +108,9 @@ namespace smsServer.Services
             return user;
         }
 
-
+        public Task<TokenResponseDTO?> ValidateRefreshTokenAsync(RefreshTokenRequestDTO refreshTokenRequestDto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

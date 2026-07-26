@@ -6,6 +6,7 @@ namespace smsServer.Services
     public interface IAuthService
     {
         Task<User?> RegisterAsync(UserDTO userDto);
-        Task<string?> LoginAsync(UserDTO userDto);
+        Task<TokenResponseDTO?> LoginAsync(UserDTO userDto);
+        Task<TokenResponseDTO?> RefreshTokenAsync(RefreshTokenRequestDTO refreshTokenRequestDto);
     }
 }
