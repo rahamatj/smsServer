@@ -207,6 +207,9 @@
           },
           "refreshToken": {
             "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
           }
         }
       },

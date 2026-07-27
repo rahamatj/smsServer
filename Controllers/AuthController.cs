@@ -71,5 +71,12 @@ namespace smsServer.Controllers
 
             return Ok(result);
         }
+
+        //[HttpGet("RefreshTokenGet")]
+        //public async Task<ActionResult<TokenResponseDTO>> RefreshTokensGet()
+        //{
+        //    return Unauthorized("Invalid refresh token.");
+
+        //}
     }
 }

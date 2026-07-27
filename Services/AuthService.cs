@@ -95,7 +95,8 @@ namespace smsServer.Services
             return new TokenResponseDTO
             {
                 AccessToken = CreateToken(user),
-                RefreshToken = await GenerateAndSaveRefreshTokenAsync(user)
+                RefreshToken = await GenerateAndSaveRefreshTokenAsync(user),
+                user = new User { Username = user.Username, Role = user.Role },
             };
         }
 
