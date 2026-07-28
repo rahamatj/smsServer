@@ -96,7 +96,6 @@ namespace smsServer.Services
             {
                 AccessToken = CreateToken(user),
                 RefreshToken = await GenerateAndSaveRefreshTokenAsync(user),
-                user = new User { Username = user.Username, Role = user.Role },
             };
         }
 
@@ -112,7 +111,7 @@ namespace smsServer.Services
             var user = new User
             {
                 Username = userDTO.Username,
-                PasswordHash = hashedPassword
+                PasswordHash = hashedPassword,
             };
 
             await dbContext.Users.AddAsync(user);
@@ -131,6 +130,11 @@ namespace smsServer.Services
             }
 
             return await CreateTokenResponse(user);
+        }
+
+        public async Task<User?> GetUserByUsernameAsync(string username)
+        {
+            return await dbContext.Users.FirstOrDefaultAsync(u => u.Username == username);
         }
     }
 }

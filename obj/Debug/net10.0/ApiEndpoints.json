@@ -35,7 +35,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "smsServer.DTOs.TokenResponseDTO",
+        "Type": "smsServer.Entities.User",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -59,6 +59,26 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": [
+      {
+        "Type": "smsServer.DTOs.TokenResponseDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "smsServer.Controllers.AuthController",
+    "Method": "RefreshTokensGet",
+    "RelativePath": "api/Auth/RefreshTokenGet",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": [
       {
         "Type": "smsServer.DTOs.TokenResponseDTO",

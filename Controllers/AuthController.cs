@@ -23,16 +23,24 @@ namespace smsServer.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<TokenResponseDTO>> Login(UserDTO userDTO)
+        public async Task<ActionResult<User>> Login(UserDTO userDTO)
         {
             var result = await authService.LoginAsync(userDTO);
+            var user = await authService.GetUserByUsernameAsync(userDTO.Username);
 
-            if (result is null)
+            if (result is null || user is null)
             {
                 return Unauthorized("Invalid username or password.");
             }
 
-            return Ok(result);
+            var response = new LoginResponseDTO
+            {
+                User = new LoggedInUserDTO { Username = user.Username, Role = user.Role },
+                AccessToken = result.AccessToken,
+                RefreshToken = result.RefreshToken
+            };
+
+            return Ok(response);
 
         }
 
@@ -72,11 +80,11 @@ namespace smsServer.Controllers
             return Ok(result);
         }
 
-        //[HttpGet("RefreshTokenGet")]
-        //public async Task<ActionResult<TokenResponseDTO>> RefreshTokensGet()
-        //{
-        //    return Unauthorized("Invalid refresh token.");
+        [HttpGet("RefreshTokenGet")]
+        public async Task<ActionResult<TokenResponseDTO>> RefreshTokensGet()
+        {
+            return Unauthorized("Invalid refresh token.");
 
-        //}
+        }
     }
 }
