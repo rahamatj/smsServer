@@ -35,7 +35,7 @@ namespace smsServer.Controllers
 
             var response = new LoginResponseDTO
             {
-                User = new LoggedInUserDTO { Username = user.Username, Role = user.Role },
+                User = new LoggedInUserDTO { UserId = user.Id, Username = user.Username, Role = user.Role },
                 AccessToken = result.AccessToken,
                 RefreshToken = result.RefreshToken
             };
