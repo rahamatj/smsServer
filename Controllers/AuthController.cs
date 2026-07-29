@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using smsServer.DTOs;
 using smsServer.Entities;
+using smsServer.Enums;
 using smsServer.Services;
 
 namespace smsServer.Controllers
@@ -35,7 +36,7 @@ namespace smsServer.Controllers
 
             var response = new LoginResponseDTO
             {
-                User = new LoggedInUserDTO { UserId = user.Id, Username = user.Username, Role = user.Role },
+                User = new LoggedInUserDTO { UserId = user.Id, Username = user.Username, Role = ((UserRole)user.Role).ToString() },
                 AccessToken = result.AccessToken,
                 RefreshToken = result.RefreshToken
             };

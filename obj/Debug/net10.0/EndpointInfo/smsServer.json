@@ -253,7 +253,7 @@
             "type": "string"
           },
           "role": {
-            "type": "string"
+            "$ref": "#/components/schemas/UserRole"
           },
           "refreshToken": {
             "type": [
@@ -280,6 +280,9 @@
             "type": "string"
           }
         }
+      },
+      "UserRole": {
+        "type": "integer"
       }
     }
   },

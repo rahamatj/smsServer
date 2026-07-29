@@ -1,4 +1,6 @@
-﻿namespace smsServer.DTOs
+﻿using smsServer.Enums;
+
+namespace smsServer.DTOs
 {
     public class LoggedInUserDTO
     {

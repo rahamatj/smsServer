@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using smsServer.Data;
 using smsServer.DTOs;
 using smsServer.Entities;
+using smsServer.Enums;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -49,7 +50,7 @@ namespace smsServer.Services
             {
                 new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Role, "Admin")
+                new Claim(ClaimTypes.Role, user.Role.ToString())
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("AppSettings:Token")!));
@@ -112,6 +113,7 @@ namespace smsServer.Services
             {
                 Username = userDTO.Username,
                 PasswordHash = hashedPassword,
+                Role = UserRole.User
             };
 
             await dbContext.Users.AddAsync(user);
