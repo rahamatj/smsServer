@@ -41,6 +41,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:Token"]!))
     });
 
+builder.Services.AddScoped<IAdminService, AdminService>();
+
 var app = builder.Build();
 
 app.UseCors("AngularPolicy");

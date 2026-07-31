@@ -113,7 +113,7 @@ namespace smsServer.Services
             {
                 Username = userDTO.Username,
                 PasswordHash = hashedPassword,
-                Role = UserRole.User
+                Role = (int)UserRole.User
             };
 
             await dbContext.Users.AddAsync(user);

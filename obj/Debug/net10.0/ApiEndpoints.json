@@ -116,5 +116,51 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "smsServer.Controllers.AdminController",
+    "Method": "GetAllAdmins",
+    "RelativePath": "api/users/admins",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[smsServer.DTOs.AdminDto, smsServer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "smsServer.Controllers.AdminController",
+    "Method": "AddAdmin",
+    "RelativePath": "api/users/admins",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "adminDto",
+        "Type": "smsServer.DTOs.AdminDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "smsServer.DTOs.AdminDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   }
 ]
