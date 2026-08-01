@@ -41,4 +41,9 @@ public class AdminService(ApplicationDbContext dbContext) : IAdminService
         
         return user;
     }
+    
+    public async Task<bool> DoesUsernameExistAsync(string username)
+    {
+        return await dbContext.Users.AnyAsync(u => u.Username == username);
+    }
 }

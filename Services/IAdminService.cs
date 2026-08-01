@@ -8,4 +8,5 @@ public interface IAdminService
 {
     Task<List<AdminDto>> GetAllAdmins();
     Task<User> AddAdminAsync(UserDTO userDto);
+    Task<bool> DoesUsernameExistAsync(string username);
 }

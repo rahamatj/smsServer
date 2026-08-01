@@ -4,3 +4,8 @@ GET {{smsServer_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET {{smsServer_HostAddress}}/api/users/does-username-exist
+Accept: application/json
+
+###

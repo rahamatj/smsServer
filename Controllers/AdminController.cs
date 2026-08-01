@@ -20,4 +20,10 @@ public class AdminController(IAdminService adminService) : ControllerBase
     {
         return adminService.AddAdminAsync(userDto);
     }
+
+    [HttpGet("does-username-exist")]
+    public async Task<bool> DoesUsernameExist([FromQuery] string username)
+    {
+        return await adminService.DoesUsernameExistAsync(username);
+    }
 }
