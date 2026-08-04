@@ -15,7 +15,7 @@ public class AdminController(IAdminService adminService) : ControllerBase
         return await adminService.GetAllAdmins();
     }
 
-    [HttpPost("new")]
+    [HttpPost("create")]
     public Task<User> AddAdmin([FromBody] UserDTO userDto)
     {
         return adminService.AddAdminAsync(userDto);
@@ -25,5 +25,23 @@ public class AdminController(IAdminService adminService) : ControllerBase
     public async Task<bool> DoesUsernameExist([FromQuery] string username)
     {
         return await adminService.DoesUsernameExistAsync(username);
+    }
+
+    [HttpGet("edit/{id:guid}")]
+    public async Task<User> EditAdminAsync([FromRoute] Guid id)
+    {
+        return await adminService.EditAdminAsync(id);
+    }
+    
+    [HttpPut("update")]
+    public async Task<User> UpdateAdminAsync(AdminDto adminDto)
+    {
+        return await adminService.UpdateAdminAsync(adminDto);
+    }
+
+    [HttpPatch("update-password")]
+    public async Task<bool> UpdateAdminPasswordAsync([FromBody] ChangePasswordDto changePasswordDto)
+    {
+        return await adminService.UpdateAdminPasswordAsync(changePasswordDto);
     }
 }

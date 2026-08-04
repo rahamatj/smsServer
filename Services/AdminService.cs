@@ -46,4 +46,49 @@ public class AdminService(ApplicationDbContext dbContext) : IAdminService
     {
         return await dbContext.Users.AnyAsync(u => u.Username == username);
     }
+
+    public async Task<User> EditAdminAsync(Guid id)
+    {
+        var user = await dbContext.Users.FindAsync(id);
+        
+        if (user == null)
+        {
+            throw new Exception("User not found");
+        }
+        
+        return user;
+    }
+
+    public async Task<User> UpdateAdminAsync(AdminDto adminDto)
+    {
+        var user = await dbContext.Users.FindAsync(adminDto.Id);
+        
+        if (user == null)
+        {
+            throw new Exception("User not found");
+        }
+        
+        user.Username = adminDto.Username;
+        user.Role = (int)adminDto.Role;
+        
+        await dbContext.SaveChangesAsync();
+        
+        return user;
+    }
+    
+    public async Task<bool> UpdateAdminPasswordAsync(ChangePasswordDto changePasswordDto)
+    {
+        var user = await dbContext.Users.FindAsync(changePasswordDto.Id);
+        var hashedPassword = BCrypt.Net.BCrypt.HashPassword(changePasswordDto.Password);
+        
+        if (user == null)
+        {
+            throw new Exception("User not found");
+        }
+        
+        user.PasswordHash = hashedPassword;
+        await dbContext.SaveChangesAsync();
+        
+        return user != null;
+    }
 }
