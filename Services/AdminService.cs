@@ -12,9 +12,12 @@ public class AdminService(ApplicationDbContext dbContext) : IAdminService
 {
     public async Task<List<AdminDto>> GetAllAdmins()
     {
-        var admins = await dbContext.Users.Where(u => u.Role == (int)UserRole.Admin).ToListAsync();
+        var admins = await dbContext
+            .Users
+            .OrderBy(a => a.CreatedOn)
+            .ToListAsync();
 
-        var adminDtos = admins.Select<User, AdminDto>(a => new AdminDto
+        var adminDtos = admins.Select(a => new AdminDto
         {
             Id = a.Id,
             Username = a.Username,
@@ -34,6 +37,7 @@ public class AdminService(ApplicationDbContext dbContext) : IAdminService
             Username = userDto.Username,
             PasswordHash = hashedPassword,
             Role = (int)userDto.Role,
+            CreatedOn = DateTime.UtcNow,
         };
 
         dbContext.Users.Add(user);
@@ -87,6 +91,21 @@ public class AdminService(ApplicationDbContext dbContext) : IAdminService
         }
         
         user.PasswordHash = hashedPassword;
+        await dbContext.SaveChangesAsync();
+        
+        return user != null;
+    }
+
+    public async Task<bool> DeleteAdminAsync(Guid id)
+    {
+        var user = await dbContext.Users.FindAsync(id);
+        
+        if (user == null)
+        {
+            throw new Exception("User not found");
+        }
+        
+        dbContext.Users.Remove(user);
         await dbContext.SaveChangesAsync();
         
         return user != null;

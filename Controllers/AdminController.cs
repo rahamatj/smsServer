@@ -21,8 +21,8 @@ public class AdminController(IAdminService adminService) : ControllerBase
         return adminService.AddAdminAsync(userDto);
     }
 
-    [HttpGet("does-username-exist")]
-    public async Task<bool> DoesUsernameExist([FromQuery] string username)
+    [HttpGet("does-username-exist/{username}")]
+    public async Task<bool> DoesUsernameExist([FromRoute] string username)
     {
         return await adminService.DoesUsernameExistAsync(username);
     }
@@ -43,5 +43,11 @@ public class AdminController(IAdminService adminService) : ControllerBase
     public async Task<bool> UpdateAdminPasswordAsync([FromBody] ChangePasswordDto changePasswordDto)
     {
         return await adminService.UpdateAdminPasswordAsync(changePasswordDto);
+    }
+    
+    [HttpDelete("delete/{id:guid}")]
+    public async Task<bool> DeleteAdminAsync([FromRoute] Guid id)
+    {
+        return await adminService.DeleteAdminAsync(id);
     }
 }

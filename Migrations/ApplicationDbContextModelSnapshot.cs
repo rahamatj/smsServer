@@ -28,12 +28,17 @@ namespace smsServer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("RefreshToken")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<DateTime?>("RefreshTokenExpiryTime")
                         .HasColumnType("datetime2");
@@ -43,7 +48,8 @@ namespace smsServer.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -53,6 +59,7 @@ namespace smsServer.Migrations
                         new
                         {
                             Id = new Guid("11111111-1111-1111-1111-111111111111"),
+                            CreatedOn = new DateTime(2026, 8, 4, 15, 56, 9, 267, DateTimeKind.Utc),
                             PasswordHash = "$2a$11$6umEUbykUoOCvpMzMjBlIOePB/tpmAMsU65dr2V/M/Pl7OEzgy2VC",
                             Role = 0,
                             Username = "SuperAdmin"
@@ -60,6 +67,7 @@ namespace smsServer.Migrations
                         new
                         {
                             Id = new Guid("11111111-1111-1111-1111-111111111112"),
+                            CreatedOn = new DateTime(2026, 8, 4, 15, 56, 9, 267, DateTimeKind.Utc),
                             PasswordHash = "$2a$11$6umEUbykUoOCvpMzMjBlIOePB/tpmAMsU65dr2V/M/Pl7OEzgy2VC",
                             Role = 1,
                             Username = "Admin1"
@@ -67,29 +75,33 @@ namespace smsServer.Migrations
                         new
                         {
                             Id = new Guid("11111111-1111-1111-1111-111111111113"),
+                            CreatedOn = new DateTime(2026, 8, 4, 15, 56, 9, 267, DateTimeKind.Utc),
                             PasswordHash = "$2a$11$6umEUbykUoOCvpMzMjBlIOePB/tpmAMsU65dr2V/M/Pl7OEzgy2VC",
-                            Role = 1,
+                            Role = 2,
                             Username = "Admin2"
                         },
                         new
                         {
                             Id = new Guid("11111111-1111-1111-1111-111111111114"),
+                            CreatedOn = new DateTime(2026, 8, 4, 15, 56, 9, 267, DateTimeKind.Utc),
                             PasswordHash = "$2a$11$6umEUbykUoOCvpMzMjBlIOePB/tpmAMsU65dr2V/M/Pl7OEzgy2VC",
-                            Role = 1,
+                            Role = 3,
                             Username = "Admin3"
                         },
                         new
                         {
                             Id = new Guid("11111111-1111-1111-1111-111111111115"),
+                            CreatedOn = new DateTime(2026, 8, 4, 15, 56, 9, 267, DateTimeKind.Utc),
                             PasswordHash = "$2a$11$6umEUbykUoOCvpMzMjBlIOePB/tpmAMsU65dr2V/M/Pl7OEzgy2VC",
-                            Role = 1,
+                            Role = 4,
                             Username = "Admin4"
                         },
                         new
                         {
                             Id = new Guid("11111111-1111-1111-1111-111111111116"),
+                            CreatedOn = new DateTime(2026, 8, 4, 15, 56, 9, 267, DateTimeKind.Utc),
                             PasswordHash = "$2a$11$6umEUbykUoOCvpMzMjBlIOePB/tpmAMsU65dr2V/M/Pl7OEzgy2VC",
-                            Role = 1,
+                            Role = 5,
                             Username = "Admin5"
                         });
                 });

@@ -12,4 +12,5 @@ public interface IAdminService
     Task<User> EditAdminAsync(Guid id);
     Task<User> UpdateAdminAsync(AdminDto adminDto);
     Task<bool> UpdateAdminPasswordAsync(ChangePasswordDto changePasswordDto);
+    Task<bool> DeleteAdminAsync(Guid id);
 }

@@ -50,7 +50,7 @@ namespace smsServer.Services
             {
                 new Claim(ClaimTypes.Name, user.Username),
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Role, user.Role.ToString())
+                new Claim(ClaimTypes.Role, ((UserRole)user.Role).ToString())
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("AppSettings:Token")!));
@@ -113,7 +113,8 @@ namespace smsServer.Services
             {
                 Username = userDTO.Username,
                 PasswordHash = hashedPassword,
-                Role = (int)UserRole.User
+                Role = (int)UserRole.User,
+                CreatedOn = DateTime.UtcNow
             };
 
             await dbContext.Users.AddAsync(user);
