@@ -12,7 +12,7 @@ using smsServer.Data;
 namespace smsServer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260804155758_Initial")]
+    [Migration("20260805140052_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

@@ -5,11 +5,11 @@ using smsServer.Services;
 
 namespace smsServer.Controllers;
 
-[Route("api/users")]
+[Route("api/admins")]
 [ApiController]
-public class AdminController(IAdminService adminService) : ControllerBase
+public class AdminsController(IAdminService adminService) : ControllerBase
 {
-    [HttpGet("admins")]
+    [HttpGet("")]
     public async Task<List<AdminDto>> GetAllAdmins()
     {
         return await adminService.GetAllAdmins();

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using smsServer.Enums;
 
 namespace smsServer.Entities
 {
