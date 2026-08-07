@@ -45,6 +45,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddScoped<IAdminService, AdminService>();
 
+builder.WebHost.UseUrls("http://0.0.0.0:10000");
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
