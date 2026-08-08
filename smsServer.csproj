@@ -22,4 +22,13 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.21.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="rahaums\web.config" />
+    <_ContentIncludedByDefault Remove="rahaums\appsettings.Development.json" />
+    <_ContentIncludedByDefault Remove="rahaums\appsettings.json" />
+    <_ContentIncludedByDefault Remove="rahaums\smsServer.deps.json" />
+    <_ContentIncludedByDefault Remove="rahaums\smsServer.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="rahaums\smsServer.staticwebassets.endpoints.json" />
+  </ItemGroup>
+
 </Project>
