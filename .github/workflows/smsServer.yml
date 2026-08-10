@@ -1,4 +1,4 @@
-  ```yaml
+```yaml
   name: Deploy .NET API to VPS
   
   on:
@@ -54,4 +54,4 @@
             script: |
               sudo systemctl restart sms-server
               sudo systemctl status sms-server --no-pager
-    ```
+```
