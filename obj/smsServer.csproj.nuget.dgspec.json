@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\code\\sms\\smsServer\\smsServer\\smsServer.csproj": {}
+    "D:\\code\\sms\\smsServer\\smsServer.csproj": {}
   },
   "projects": {
-    "D:\\code\\sms\\smsServer\\smsServer\\smsServer.csproj": {
+    "D:\\code\\sms\\smsServer\\smsServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\code\\sms\\smsServer\\smsServer\\smsServer.csproj",
+        "projectUniqueName": "D:\\code\\sms\\smsServer\\smsServer.csproj",
         "projectName": "smsServer",
-        "projectPath": "D:\\code\\sms\\smsServer\\smsServer\\smsServer.csproj",
+        "projectPath": "D:\\code\\sms\\smsServer\\smsServer.csproj",
         "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "D:\\code\\sms\\smsServer\\smsServer\\obj\\",
+        "outputPath": "D:\\code\\sms\\smsServer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("smsServer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c34be37c49648859dfa45a50c2f2bd87cf1ac2dc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9ae610babda68c562b3b30fd25392de64b09ba76")]
 [assembly: System.Reflection.AssemblyProductAttribute("smsServer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("smsServer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
