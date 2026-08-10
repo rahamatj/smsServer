@@ -1,57 +1,48 @@
-```yaml
-  name: Deploy .NET API to VPS
-  
-  on:
-    push:
-      branches:
-        - main
-  
-  jobs:
-    deploy:
-      runs-on: ubuntu-latest
-      
-      steps:
-        # 1. Checkout source code
-        - name: Checkout repository
-          uses: actions/checkout@v4
-        
-        # 2. Setup .NET
-        - name: Setup .NET
-          uses: actions/setup-dotnet@v4
-          with:
-            dotnet-version: '10.x'
-        
-        # 3. Restore dependencies
-        - name: Restore
-          run: dotnet restore
-        
-        # 4. Build
-        - name: Build
-          run: dotnet build --configuration Release --no-restore
-        
-        # 5. Publish
-        - name: Publish
-          run: dotnet publish --configuration Release --output ./publish --no-restore
-        
-        # 6. Copy published files to VPS
-        - name: Deploy to VPS
-          uses: appleboy/scp-action@v0.1.7
-          with:
-            host: ${{ secrets.VPS_HOST }}
-            username: ${{ secrets.VPS_USER }}
-            key: ${{ secrets.VPS_SSH_KEY }}
-            source: "publish/*"
-            target: "/var/www/sms/sms-server"
-            strip_components: 1
-        
-        # 7. Restart API
-        - name: Restart API service
-          uses: appleboy/ssh-action@v1.2.0
-          with:
-            host: ${{ secrets.VPS_HOST }}
-            username: ${{ secrets.VPS_USER }}
-            key: ${{ secrets.VPS_SSH_KEY }}
-            script: |
-              sudo systemctl restart sms-server
-              sudo systemctl status sms-server --no-pager
-```
+name: Deploy .NET API to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.x"
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Publish
+        run: dotnet publish --configuration Release --output ./publish --no-restore
+
+      - name: Deploy to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          source: "publish/**"
+          target: "/var/www/sms/sms-server"
+          strip_components: 1
+
+      - name: Restart API service
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            sudo systemctl restart sms-server
+            sudo systemctl status sms-server --no-pager
