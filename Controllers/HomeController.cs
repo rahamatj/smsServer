@@ -1,14 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 
 namespace smsServer.Controllers;
 
 
 [ApiController]
-public class HomeController
+[Route("[controller]")]
+public class HomeController : ControllerBase
 {
     [HttpGet("")]
-    public string hello()
+    public IActionResult Hello()
     {
-        return "Hello, World!";
+        return Ok(new { Message = "Hello World!" });
     }
 }
