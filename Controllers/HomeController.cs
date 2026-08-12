@@ -11,6 +11,6 @@ public class HomeController : ControllerBase
     [HttpGet("")]
     public IActionResult Hello()
     {
-        return Ok(new { Message = "Hello World!" });
+        return Ok(new { Message = "Hello from HomeController" });
     }
 }
