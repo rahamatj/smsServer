@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using smsServer.Data;
 using smsServer.Services;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,8 +49,9 @@ builder.WebHost.UseUrls("http://0.0.0.0:10000");
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
+if (app.Environment.IsDevelopment())
 {
+    using var scope = app.Services.CreateScope();
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     dbContext.Database.Migrate();
 }

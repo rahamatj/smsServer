@@ -1,2 +1,5 @@
 appsettings.Production.json
 publish/
+.idea
+bin
+obj
