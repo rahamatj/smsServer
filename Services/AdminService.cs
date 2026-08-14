@@ -14,7 +14,7 @@ public class AdminService(ApplicationDbContext dbContext) : IAdminService
     {
         var admins = await dbContext
             .Users
-            .OrderBy(a => a.CreatedOn)
+            .OrderByDescending(a => a.CreatedOn)
             .ToListAsync();
 
         var adminDtos = admins.Select(a => new AdminDto

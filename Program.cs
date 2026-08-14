@@ -16,7 +16,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AngularPolicy", policy =>
     {
         policy
-            .WithOrigins("http://umsconnect.com", "http://localhost:4200")
+            .WithOrigins("http://umsconnect.com", "http://umsconnect.com", "http://localhost:4200")
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
