@@ -27,20 +27,26 @@ public class AdminService(ApplicationDbContext dbContext) : IAdminService
         return adminDtos;
     }
 
-    public async Task<User> AddAdminAsync(UserDTO userDto)
+    public async Task<User?> AddAdminAsync(UserDTO userDto)
     {
+        var username = userDto.Username.Trim();
+        if (await dbContext.Users.AnyAsync(u => u.Username == username))
+        {
+            return null;
+        }
+
         var hashedPassword = BCrypt.Net.BCrypt.HashPassword(userDto.Password);
         
         var user = new User
         {
             Id = Guid.NewGuid(),
-            Username = userDto.Username,
+            Username = username,
             PasswordHash = hashedPassword,
             Role = (int)userDto.Role,
             CreatedOn = DateTime.UtcNow,
         };
 
-        dbContext.Users.Add(user);
+        await dbContext.Users.AddAsync(user);
         await dbContext.SaveChangesAsync();
         
         return user;

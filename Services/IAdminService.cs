@@ -7,7 +7,7 @@ namespace smsServer.Services;
 public interface IAdminService
 {
     Task<List<AdminDto>> GetAllAdmins();
-    Task<User> AddAdminAsync(UserDTO userDto);
+    Task<User?> AddAdminAsync(UserDTO userDto);
     Task<bool> DoesUsernameExistAsync(string username);
     Task<User> EditAdminAsync(Guid id);
     Task<User> UpdateAdminAsync(AdminDto adminDto);

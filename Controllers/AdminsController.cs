@@ -16,9 +16,21 @@ public class AdminsController(IAdminService adminService) : ControllerBase
     }
 
     [HttpPost("create")]
-    public Task<User> AddAdmin([FromBody] UserDTO userDto)
+    public async Task<ActionResult<User>> AddAdmin([FromBody] UserDTO userDto)
     {
-        return adminService.AddAdminAsync(userDto);
+        if (string.IsNullOrWhiteSpace(userDto.Username) || string.IsNullOrWhiteSpace(userDto.Password))
+        {
+            return BadRequest("Username and password are required.");
+        }
+
+        var user = await adminService.AddAdminAsync(userDto);
+        
+        if (user is null)
+        {
+            return Conflict("Username already exists.");
+        }
+
+        return Ok(user);
     }
 
     [HttpGet("does-username-exist/{username}")]

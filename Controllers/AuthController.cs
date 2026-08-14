@@ -24,7 +24,7 @@ namespace smsServer.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<User>> Login(UserDTO userDTO)
+        public async Task<ActionResult<User>> Login([FromBody] UserDTO userDTO)
         {
             var result = await authService.LoginAsync(userDTO);
             var user = await authService.GetUserByUsernameAsync(userDTO.Username);
